@@ -1,0 +1,30 @@
+services:
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      
+  backend:
+    restart: always
+    build: ./backend
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+
+  db:
+    restart: always
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+
+volumes:
+  data:
+    
